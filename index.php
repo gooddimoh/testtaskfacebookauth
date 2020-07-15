@@ -1,111 +1,38 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/js/main.js">
-    <title>Bootstrap 4 Login/Register Form</title>
-</head>
-<body>
-<div id="logreg-forms">
-    <form class="form-signin">
-        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h1>
-        <div class="social-login">
-            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-                <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span>
-                </button>
-            </fb:login-button>
-        </div>
-        <p style="text-align:center"> OR </p>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-        <button class="btn btn-success btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Sign in</button>
-        <a href="#" id="forgot_pswd">Forgot password?</a>
-        <hr>
-        <!-- <p>Don't have an account!</p>  -->
-        <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up
-            New Account
-        </button>
-    </form>
-    <form action="/reset/password/" class="form-reset">
-        <input type="email" id="resetEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-        <button class="btn btn-primary btn-block" type="submit">Reset Password</button>
-        <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>
-    </form>
-    <form action="/signup/" class="form-signup">
-        <div class="social-login">
-            <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign up with Facebook</span>
-            </button>
-        </div>
-        <p style="text-align:center">OR</p>
-
-        <input type="text" id="user-name" class="form-control" placeholder="Full name" required="" autofocus="">
-        <input type="email" id="user-email" class="form-control" placeholder="Email address" required autofocus="">
-        <input type="password" id="user-pass" class="form-control" placeholder="Password" required autofocus="">
-        <input type="password" id="user-repeatpass" class="form-control" placeholder="Repeat Password" required
-               autofocus="">
-
-        <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
-        <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
-    </form>
-    <br>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-<script src="/script.js"></script>
-<script>
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '{888518078309781}',
-            cookie: true,
-            xfbml: true,
-            version: '{v7.0}'
-        });
-
-        FB.AppEvents.logPageView();
-
-    };
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-            return;
-        }
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-    FB.getLoginStatus(function (response) {
-        statusChangeCallback(response);
-    });
-    function checkLoginState() {
-        FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-        });
-    }
-</script>
-</body>
-</html>
-
 <?php
-use FacebookAuth;
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+require __DIR__ . '/vendor/autoload.php';
 
-$name = $_POST["name"];
-$password = $_POST["password"];
-$access_token = $_POST["access_token"];
+use FacebookAds\Object\AdAccount;
+use FacebookAds\Object\Campaign;
+use FacebookAds\Api;
+use FacebookAds\Logger\CurlLogger;
+use FacebookAds\Object\AdSet;
+use FacebookAds\Object\Fields\AdSetFields;
 
-$login = new FacebookAuth\FacebookAuth($name, $password);
+$access_token = 'EAAMoGjxvJZAUBAPhns0En30cZA1CfIX9ZAqMJfxNNc9Cn25vEgpNG0RN0Gb30T9cGZAXyjFdoBPK0JzpEcGmP5x8338N15Ndw9E0aWAg7al1Yi7k0eEh7eMzkHYDwnFe6BF5UitTzVmLEUP5P58ZCZBmScaGsvySm2knw2iiPG76wxmwZADfYZCyZBuRos9gBpWi124moBtYaMs6G6S0SwJJOYKWUpkazdMgsCbh5wxd87AZDZD';
+$app_secret = '23392245e3f5ab26bff25226f56c4167';
+$app_id = '888518078309781';
+$id = 'act_548632589419134';
 
-$login->login();
-$login->cron();
+$api = Api::init($app_id, $app_secret, $access_token);
+$account_id = 'act_548632589419134';
+$campaign_id = '23845019999200300';
+
+$account = new AdAccount($account_id);
+$adset = $account->createAdSet(
+    array(),
+    array(
+        AdSetFields::NAME => 'My Test AdSet',
+        AdSetFields::CAMPAIGN_ID => $campaign_id,
+        AdSetFields::DAILY_BUDGET => 150,
+        AdSetFields::START_TIME => (new \DateTime("+1 week"))->format(\DateTime::ISO8601),
+        AdSetFields::END_TIME => (new \DateTime("+2 week"))->format(\DateTime::ISO8601),
+        AdSetFields::BILLING_EVENT => 'IMPRESSIONS',
+        AdSetFields::TARGETING => array('geo_locations' => array('countries' => array('US'))),
+        AdSetFields::BID_AMOUNT => '1000',
+    )
+);
+
+echo $adset->id;

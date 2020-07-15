@@ -1,0 +1,121 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/js/main.js">
+    <title>Bootstrap 4 Login/Register Form</title>
+</head>
+<body>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="wrap">
+            <h1>List of users</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>Img</th>
+                    <th>Name</th>
+                    <th>Appointments</th>
+                    <th>Stamp</th>
+                    <th>Price</th>
+                    <th>Last online</th>
+                    <th>Notification</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><img width="40px" height="40px"
+                             src="https://cdn.iconscout.com/icon/free/png-512/avatar-369-456321.png" alt=""></td>
+                    <td>January</td>
+                    <td>$100</td>
+                </tr>
+                <tr>
+                    <td><img width="40px" height="40px"
+                             src="https://cdn.iconscout.com/icon/free/png-512/avatar-369-456321.png" alt=""></td>
+                    <td>February</td>
+                    <td>$80</td>
+                </tr>
+                <tr>
+                    <td><img width="40px" height="40px"
+                             src="https://cdn.iconscout.com/icon/free/png-512/avatar-369-456321.png" alt=""></td>
+                    <td>February</td>
+                    <td>$80</td>
+                </tr>
+                <tr>
+                    <td><img width="40px" height="40px"
+                             src="https://cdn.iconscout.com/icon/free/png-512/avatar-369-456321.png" alt=""></td>
+                    <td>February</td>
+                    <td>$80</td>
+                </tr>
+                <tr>
+                    <td><img width="40px" height="40px"
+                             src="https://cdn.iconscout.com/icon/free/png-512/avatar-369-456321.png" alt=""></td>
+                    <td>February</td>
+                    <td>$80</td>
+                </tr>
+                <tr>
+                   <td><img width="40px" height="40px"
+                         src="https://cdn.iconscout.com/icon/free/png-512/avatar-369-456321.png" alt=""></td>
+                    <td>February</td>
+                    <td>$80</td>
+                    <td>sign out</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="/script.js"></script>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '{888518078309781}',
+            cookie: true,
+            xfbml: true,
+            version: '{v7.0}'
+        });
+
+        FB.AppEvents.logPageView();
+
+    };
+    FB.getLoginStatus(function (response) {
+        statusChangeCallback(response);
+    });
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+    function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
+    }
+</script>
+</body>
+</html>
